@@ -209,21 +209,29 @@
             }
 
             body.force-desktop {
-                overflow-x: auto;
+                overflow-x: auto !important;
             }
 
             body.force-desktop .hero {
-                min-width: 1200px;
+                min-width: 1280px;
                 flex-direction: row;
                 height: 100vh;
                 padding: 0 5%;
+            }
+
+            body.force-desktop .nav {
+                width: 1280px;
+                left: 0;
+                justify-content: flex-start;
+                padding: 0 5%;
+                box-sizing: border-box;
             }
 
             body:not(.force-desktop) .hero {
                 flex-direction: column;
                 height: auto;
                 min-height: 100vh;
-                padding: 120px 5% 50px;
+                padding: 160px 5% 50px; /* Increased top padding to avoid overlap */
                 text-align: center;
                 display: flex;
             }
@@ -264,8 +272,11 @@
             body:not(.force-desktop) .nav {
                 width: 100%;
                 left: 0;
-                justify-content: center;
-                top: 20px;
+                justify-content: space-between; /* Space logo and toggle apart */
+                top: 30px;
+                padding: 0 5%;
+                box-sizing: border-box;
+                z-index: 100;
             }
 
             body:not(.force-desktop) .price-tag {
