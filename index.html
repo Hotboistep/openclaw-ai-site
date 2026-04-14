@@ -31,12 +31,12 @@
         /* Hero Layout */
         .hero {
             display: flex;
-            height: 100vh;
+            min-height: 100vh;
             width: 100vw;
             align-items: center;
             justify-content: center;
             position: relative;
-            padding: 0 5%;
+            padding: 120px 5% 50px; /* Added top padding to prevent overlap with nav */
             box-sizing: border-box;
         }
 
@@ -143,15 +143,21 @@
         }
 
         .nav {
-            position: absolute;
-            top: 40px;
-            left: 5%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 5%;
             font-weight: 900;
             letter-spacing: 2px;
             font-size: 1.2rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            /* justify-content: space-between; Default desktop spacing */
+            box-sizing: border-box;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.5);
         }
 
         .logo-dot {
@@ -216,7 +222,7 @@
                 min-width: 1280px;
                 flex-direction: row;
                 height: 100vh;
-                padding: 0 5%;
+                padding: 120px 5% 0; /* Keep top padding in forced desktop mode */
             }
 
             body.force-desktop .nav {
