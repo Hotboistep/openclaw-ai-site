@@ -160,12 +160,100 @@
             background: var(--accent);
             border-radius: 50%;
         }
+
+        /* Toggle Switch UI */
+        .view-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 12px;
+            border-radius: 50px;
+            margin-left: 15px;
+            font-size: 0.7rem;
+            color: var(--gray);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            user-select: none;
+        }
+
+        .switch-track {
+            width: 32px;
+            height: 16px;
+            background: #333;
+            border-radius: 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .switch-knob {
+            width: 12px;
+            height: 12px;
+            background: var(--text);
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s ease;
+        }
+
+        body.force-desktop .switch-track { background: var(--accent); }
+        body.force-desktop .switch-knob { transform: translateX(16px); }
+        body.force-desktop .label-desktop { color: var(--text); font-weight: 900; }
+        body.mobile-active .label-mobile { color: var(--text); font-weight: 900; }
+
+        /* Responsive Logic */
+        @media (max-width: 768px) {
+            body:not(.force-desktop) .hero {
+                flex-direction: column;
+                height: auto;
+                padding: 120px 5% 50px;
+                text-align: center;
+            }
+
+            body:not(.force-desktop) .copy-column {
+                order: 2;
+                max-width: 100%;
+            }
+
+            body:not(.force-desktop) h1 {
+                font-size: 2.8rem;
+                letter-spacing: -1px;
+            }
+
+            body:not(.force-desktop) p {
+                margin: 0 auto 30px;
+            }
+
+            body:not(.force-desktop) .visual-column {
+                order: 1;
+                height: 350px;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            body:not(.force-desktop) model-viewer {
+                height: 100%;
+            }
+
+            body:not(.force-desktop) .nav {
+                width: 100%;
+                left: 0;
+                justify-content: center;
+                top: 20px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="nav">
         <div class="logo-dot"></div> OPENCLAW AI
+        <div class="view-toggle" id="mode-toggle">
+            <span class="label-mobile">Mobile</span>
+            <div class="switch-track"><div class="switch-knob"></div></div>
+            <span class="label-desktop">Desktop</span>
+        </div>
     </div>
 
     <div class="hero">
@@ -196,5 +284,22 @@
         </div>
     </div>
 
+    <script>
+        const toggle = document.getElementById('mode-toggle');
+        const body = document.body;
+
+        // Apply initial state
+        if (localStorage.getItem('force-desktop') === 'true') {
+            body.classList.add('force-desktop');
+        } else {
+            body.classList.add('mobile-active');
+        }
+
+        toggle.addEventListener('click', () => {
+            const isDesktop = body.classList.toggle('force-desktop');
+            body.classList.toggle('mobile-active', !isDesktop);
+            localStorage.setItem('force-desktop', isDesktop);
+        });
+    </script>
 </body>
 </html>
